@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+autopep8 = "*"
+tensorflowjs = "*"
+tfjs-graph-converter = {git = "https://github.com/patlevin/tfjs-to-tf.git",ref = "v0.5.0"}
+
+[packages]
+pillow = "*"
+tensorflow = "*"
+opencv-python = "*"
+
+[requires]
+python_version = "3"
+
+[scripts]
+start = "./app.py"
+get_model = "./get-model.sh"
