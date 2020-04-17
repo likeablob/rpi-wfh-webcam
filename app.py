@@ -222,10 +222,9 @@ def main(ARGS):
         if latest_mask_img is not None:
             # Composite the foreground and background images
             mask = latest_mask_img
-            mask_inv = cv2.bitwise_not(mask)
-            fg = cv2.bitwise_and(frame, mask)
-            bg = cv2.bitwise_and(bg_img, mask_inv)
-            composed = cv2.add(bg, fg)
+            composed = np.zeros(frame.shape, dtype=frame.dtype)
+            for i in range(3):
+                composed[:,:,i] = bg_img[:,:,i] * (1-mask[:,:,i]/255) + frame[:,:,i] * (mask[:,:,i]/255)
 
             # Output the frame
             if ARGS.show_only_gui:
