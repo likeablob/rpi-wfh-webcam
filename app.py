@@ -5,6 +5,7 @@ import time
 import queue
 import argparse
 import cv2
+import pafy
 import numpy as np
 import tensorflow as tf
 from threading import Thread, Event
@@ -177,6 +178,10 @@ def main(ARGS):
     # Load the background image/video
     if ARGS.bg_video:
         cap_file = cv2.VideoCapture(ARGS.bg_video)
+    elif ARGS.bg_url:
+        vPafy = pafy.new(ARGS.bg_url)
+        play = vPafy.getbestvideo()
+        cap_file = cv2.VideoCapture(play.url)
 
     bg_img = cv2.imread(ARGS.bg_image)
     bg_img = cv2.resize(bg_img, dsize=ARGS.cap_res)
@@ -211,7 +216,7 @@ def main(ARGS):
             latest_mask_img = output_q.get_nowait()
 
         # Load a frame from the background video file
-        if ARGS.bg_video:
+        if cap_file:
             ret, bg_img = cap_file.read()
             if not ret:
                 cap_file.set(cv2.CAP_PROP_POS_FRAMES, 0)
@@ -279,6 +284,9 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--bg-video', metavar='VIDEO_FILE',
                         type=str, default=None,
                         help='Background video.')
+    parser.add_argument('-u', '--bg-url', metavar='VIDEO_FILE',
+                        type=str, default=None,
+                        help='Background video url.')
     parser.add_argument('-g', '--show-only-gui',
                         action='store_true',
                         help='Show results visually (needs X11).')
