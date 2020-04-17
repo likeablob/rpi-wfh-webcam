@@ -284,7 +284,7 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--bg-video', metavar='VIDEO_FILE',
                         type=str, default=None,
                         help='Background video.')
-    parser.add_argument('-u', '--bg-url', metavar='VIDEO_FILE',
+    parser.add_argument('-u', '--bg-url', metavar='VIDEO_URL',
                         type=str, default=None,
                         help='Background video url.')
     parser.add_argument('-g', '--show-only-gui',
