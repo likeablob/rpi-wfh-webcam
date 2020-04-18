@@ -40,7 +40,7 @@ graph LR
 ### Download models
 ```bash
 $ cd path/to/cloned/repo
-$ pipenv install 
+$ pipenv install -d
 $ pipenv run ./get-model.sh mobilenet/float/050/model-stride16
 $ ls -hl posenet_mobilenet_float_050_model-stride16.pb
 ```
@@ -68,7 +68,7 @@ $ rsync -avP ../rpi-wfh-webcam rpi4:/home/pi/
 - To install TensorFlow on your Pi4, refer to https://qengineering.eu/install-tensorflow-2.1.0-on-raspberry-pi-4.html .
 ```bash
 # Install the dependencies
-$ sudo pip3 install opencv-python pillow
+$ sudo pip3 install opencv-python pillow pafy youtube-dl
 $ sudo apt install v4l2loopback-dkms v4l2loopback-utils ffmpeg
 
 # Enable the required modules & overlay
@@ -119,5 +119,6 @@ USB 2.0 Camera: HD USB Camera (usb-0000:01:00.0-1.4):
 ## Acknowledgements
 - [`bg.jpg`](./bg.jpg): Photo by Elizeu Dias on Unsplash
 - tensorflow/tfjs-models: https://github.com/tensorflow/tfjs-models/tree/master/body-pix
-- [wlhe]'s `uvc-gadget`: https://github.com/wlhe/uvc-gadget
-- [ajaichemmanam]'s `simple_bodypix_python`: https://github.com/ajaichemmanam/simple_bodypix_python
+- _[wlhe]_'s `uvc-gadget`: https://github.com/wlhe/uvc-gadget
+- _[ajaichemmanam]_'s `simple_bodypix_python`: https://github.com/ajaichemmanam/simple_bodypix_python
+- Thanks [_[jtsymon]_](https://github.com/jtsymon), for [your contributions](https://github.com/likeablob/rpi-wfh-webcam/pulls?q=is%3Apr+author%3Ajtsymon).
