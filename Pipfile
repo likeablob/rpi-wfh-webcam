@@ -13,6 +13,8 @@ tfjs-graph-converter = {git = "https://github.com/patlevin/tfjs-to-tf.git",ref =
 pillow = "*"
 tensorflow = "*"
 opencv-python = "*"
+pafy = "*"
+youtube-dl = "*"
 
 [requires]
 python_version = "3"
