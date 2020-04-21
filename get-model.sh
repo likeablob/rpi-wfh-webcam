@@ -3,21 +3,43 @@
 # Exit on any error
 set -e
 
+function usage() {
+  cat <<_EOT_
+Usage:
+  $0 model-name
+
+Options:
+  model-name  Specify a model name to download. (e.g. bodypix/resnet50/float/model-stride16)
+               Refer to https://storage.googleapis.com/tfjs-models for the available models.
+
+_EOT_
+  exit 1
+}
+
 # Check args
-[ -z $1 ] && echo "usage: $0 <model-name| e.g. mobilenet/float/050/model-stride16> " && exit 1
+[ -z $1 ] && usage
 
-# Define variables
+# Define constants & variables
+BASE_URL=https://storage.googleapis.com/tfjs-models/savedmodel
 MODEL_NAME=$1
-DIR_NAME=$(echo posenet_${MODEL_NAME} | tr "/" "_")
+DIR_NAME=$(echo ${MODEL_NAME} | tr "/" "_")
+JQ=$(which jq || :)
 
-echo MODEL_NAME: ${MODEL_NAME}
-mkdir ${DIR_NAME}
+# Verify jq is installed
+[ -z ${JQ} ] && echo 'Please install "jq".' && exit 1
 
 # Fetch model.json and weights.bin
+mkdir ${DIR_NAME}
+
 pushd ${DIR_NAME}
-wget -c https://storage.googleapis.com/tfjs-models/savedmodel/bodypix/${MODEL_NAME}.json -O model.json
-cat model.json | jq -r ".weightsManifest | map(.paths) | flatten | @csv" | tr "," "\n" | xargs -I% wget -c https://storage.googleapis.com/tfjs-models/savedmodel/bodypix/${MODEL_NAME%/*}/%
+wget -c -nv ${BASE_URL}/${MODEL_NAME}.json -O model.json
+cat model.json |
+  ${JQ} -r ".weightsManifest | map(.paths) | flatten | @csv" |
+  tr "," "\n" |
+  xargs -I% wget -c ${BASE_URL}/${MODEL_NAME%/*}/%
 popd
+
+echo "Successfully downloaded to: ${DIR_NAME}"
 
 # Convert to the tf_frozen_model format
 tfjs_graph_converter ${DIR_NAME} ${DIR_NAME}.pb
