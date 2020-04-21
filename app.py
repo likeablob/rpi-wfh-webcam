@@ -162,6 +162,7 @@ def mask_image_generator(is_running, estimator, input_q, output_q):
 def main(ARGS):
     # Init variables
     latest_mask_img = None
+    cap_file = None
     input_q = queue.Queue(maxsize=1)
     output_q = queue.Queue(maxsize=1)
     estimator = BodyPixEstimator(ARGS.model, ARGS.stride, ARGS.shrink_factor)
@@ -179,8 +180,8 @@ def main(ARGS):
     if ARGS.bg_video:
         cap_file = cv2.VideoCapture(ARGS.bg_video)
     elif ARGS.bg_url:
-        vPafy = pafy.new(ARGS.bg_url)
-        play = vPafy.getbestvideo()
+        v_pafy = pafy.new(ARGS.bg_url)
+        play = v_pafy.getbestvideo()
         cap_file = cv2.VideoCapture(play.url)
 
     bg_img = cv2.imread(ARGS.bg_image)
