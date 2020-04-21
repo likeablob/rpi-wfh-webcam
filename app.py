@@ -180,8 +180,8 @@ def main(ARGS):
     if ARGS.bg_video:
         cap_file = cv2.VideoCapture(ARGS.bg_video)
     elif ARGS.bg_url:
-        vPafy = pafy.new(ARGS.bg_url)
-        play = vPafy.getbestvideo()
+        v_pafy = pafy.new(ARGS.bg_url)
+        play = v_pafy.getbestvideo()
         cap_file = cv2.VideoCapture(play.url)
 
     bg_img = cv2.imread(ARGS.bg_image)
