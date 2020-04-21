@@ -41,8 +41,8 @@ graph LR
 ```bash
 $ cd path/to/cloned/repo
 $ pipenv install -d
-$ pipenv run ./get-model.sh mobilenet/float/050/model-stride16
-$ ls -hl posenet_mobilenet_float_050_model-stride16.pb
+$ pipenv run ./get-model.sh bodypix/mobilenet/float/050/model-stride16
+$ ls -hl bodypix_mobilenet_float_050_model-stride16.pb
 ```
 - See https://storage.googleapis.com/tfjs-models for other models
 
@@ -51,12 +51,12 @@ $ ls -hl posenet_mobilenet_float_050_model-stride16.pb
 # Show the usage help
 $ pipenv run start -h 
 # Start app.py with -g to show results visually
-$ pipenv run start -m posenet_mobilenet_float_050_model-stride16.pb -g
+$ pipenv run start -m bodypix_mobilenet_float_050_model-stride16.pb -g
 
 # Tips 1: Change the background image
-$ pipenv run start -m posenet_mobilenet_float_050_model-stride16.pb -g -i awesome_image.jpg
+$ pipenv run start -m bodypix_mobilenet_float_050_model-stride16.pb -g -i awesome_image.jpg
 # Tips 2: Change the background video
-$ pipenv run start -m posenet_mobilenet_float_050_model-stride16.pb -g -e awesome_video.mp4
+$ pipenv run start -m bodypix_mobilenet_float_050_model-stride16.pb -g -e awesome_video.mp4
 ```
 
 ## Install to RPi
@@ -104,7 +104,7 @@ USB 2.0 Camera: HD USB Camera (usb-0000:01:00.0-1.4):
 
 # Lanch app.py and pipe the video stream to /dev/video0 by using ffmpeg.
 # Also we use ffmpeg to resize the stream to 1280x720.
-./app.py -m posenet_mobilenet_float_050_model-stride16.pb -c 1 |  ffmpeg -s 640x480 -f rawvideo -pix_fmt bgr24 -framerate 10 -i - -s 1280x720 -vf crop=w=640:h=360 -r 10 -f v4l2 -vcodec rawvideo -pix_fmt yuyv422 /dev/video0
+./app.py -m bodypix_mobilenet_float_050_model-stride16.pb -c 1 | ffmpeg -s 640x480 -f rawvideo -pix_fmt bgr24 -framerate 10 -i - -s 1280x720 -vf crop=w=640:h=360 -r 10 -f v4l2 -vcodec rawvideo -pix_fmt yuyv422 /dev/video0
 
 # Then enable the webcam
 ./uvc-gadget.armv7 -f 0 -r 1 -u /dev/video3 -v /dev/video0

@@ -259,7 +259,7 @@ if __name__ == "__main__":
         description='Streaming video to stdout with applying special effects. \
             Use ffmpeg to write the stream to another video device.')
     parser.add_argument('-m', '--model', metavar='PB_FILE',
-                        type=str, default="models/face-detection-retail-0004",
+                        type=str, default="bodypix_mobilenet_float_050_model-stride16.pb",
                         help='Model base path.')
     parser.add_argument('-s', '--stride',
                         type=int, default=16,
