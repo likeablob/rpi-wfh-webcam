@@ -162,6 +162,7 @@ def mask_image_generator(is_running, estimator, input_q, output_q):
 def main(ARGS):
     # Init variables
     latest_mask_img = None
+    cap_file = None
     input_q = queue.Queue(maxsize=1)
     output_q = queue.Queue(maxsize=1)
     estimator = BodyPixEstimator(ARGS.model, ARGS.stride, ARGS.shrink_factor)
